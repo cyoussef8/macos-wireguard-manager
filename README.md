@@ -17,7 +17,13 @@
 <img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
 <h2>Prerequisites <em>(must be installed first)</em></h2>
 
-<h3>1. Choose your Installation Method</h3>
+<h3>1. Install Package Manager</h3>
+<ul>
+    <li><b>For MacPorts:</b> If not installed, you must download and run the installer for your macOS version from <a href="https://www.macports.org/install.php">macports.org</a>.</li>
+    <li><b>For Homebrew:</b> If not installed, get it at <a href="https://brew.sh/">brew.sh</a>.</li>
+</ul>
+
+<h3>2. Install WireGuard Tools</h3>
 <ul>
     <li><b>Via MacPorts:</b>
         <pre><code>sudo port install wireguard-tools</code></pre>
@@ -27,7 +33,7 @@
         <pre><code>brew install wireguard-tools</code></pre>
         <i>Config Path: <code>/etc/wireguard/</code></i>
     </li>
-</ul></h2>
+</ul>
 <h2>Installation</h2>
 
 <h3>1. Copy the Script </h3><code>(Currently using <b>MacPorts</b> - If using <b>Homebrew</b>, change the <b>CONF_DIR=</b> path to "/etc/wireguard")</code>
