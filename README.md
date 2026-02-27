@@ -1,5 +1,5 @@
 <h1> macOS WireGuard Interactive Manager</h1>
-<p><i>Tested on macOS High Sierra</i></p>
+<p><i>Tested on macOS High Sierra (MacPorts)</i></p>
 
 <p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu.</p>
 
@@ -17,36 +17,45 @@
 
 <h2>Prerequisites</h2>
 <ul>
-    <li><b>WireGuard Tools:</b> Installed via Homebrew (<code>brew install wireguard-tools</code>) or MacPorts (<code>sudo port install wireguard-tools</code>).</li>
-    <li><b>WireGuard Configurations:</b>
-        <ul>
-            <li>If using <b>Homebrew</b>, default path is <code>/etc/wireguard/</code>.</li>
-            <li>If using <b>MacPorts</b>, default path is <code>/opt/local/etc/wireguard/</code>.</li>
-        </ul>
+    <li><b>WireGuard Tools:</b> Installed via MacPorts:
+        <pre><code>sudo port install wireguard-tools</code></pre>
     </li>
+    <li><b>WireGuard Configurations:</b> Located in <code>/opt/local/etc/wireguard/</code>.</li>
 </ul>
 
 <h2>Installation</h2>
 <ol>
     <li>Clone or download this script.</li>
-    <li><b>Configure Path:</b> Open the script in a text editor and update the <code>CONF_DIR</code> variable to match your installation:
-        <ul>
-            <li>For <b>MacPorts</b>, set: <code>CONF_DIR="/opt/local/etc/wireguard"</code></li>
-            <li>For <b>Homebrew</b>, set: <code>CONF_DIR="/etc/wireguard"</code></li>
-        </ul>
-    </li>
-    <li><b>Add Config Files:</b> Move your WireGuard <code>.conf</code> files into the directory you defined in <code>CONF_DIR</code>.
-        <pre><code>sudo mv your-server.conf /opt/local/etc/wireguard/</code></pre>
-    </li>
     <li>Move the script to your local bin folder:
         <pre><code>sudo mv vpn /usr/local/bin/vpn</code></pre>
     </li>
     <li>Make it executable:
         <pre><code>sudo chmod +x /usr/local/bin/vpn</code></pre>
     </li>
-    <li><b>Update PATH (if needed):</b> If you cannot run <code>vpn</code> from any folder, add this line to your <code>~/.bash_profile</code>:
-        <pre><code>export PATH="$PATH:/usr/local/bin"</code></pre>
+    <li><b>Add Config Files:</b> Move your WireGuard <code>.conf</code> files into:
+        <pre><code>/opt/local/etc/wireguard/</code></pre>
     </li>
+    <li><b>Configure Profile:</b> Open <code>~/.bash_profile</code> in a text editor (e.g., <code>nano ~/.bash_profile</code>) and add the following for autocomplete and quick access:
+        <pre><code>
+# VPN Autocomplete for Bash
+_vpn_autocomplete() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local configs=$(ls /opt/local/etc/wireguard/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf//')
+    COMPREPLY=( $(compgen -W "$configs" -- "$cur") )
+}
+complete -F _vpn_autocomplete vpn
+
+# Quick access to config folder
+alias vpnfolder='cd /opt/local/etc/wireguard && ls'
+
+# Verify connection
+alias checkvpn='curl -s https://ipapi.co/json | grep -E "city|region|org"'
+
+# Ensure PATH is correct for MacPorts
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+        </code></pre>
+    </li>
+    <li><b>Apply Changes:</b> Run <code>source ~/.bash_profile</code>.</li>
 </ol>
 
 <h2>Usage</h2>
@@ -88,9 +97,10 @@
 
 
 
-<h3>2. Manual Commands</h3>
+<h3>2. Manual Commands & Autocomplete</h3>
 <ul>
-    <li><b>Connect by name:</b> <code>vpn au-syd-101</code></li>
+    <li><b>Connect by name:</b> <code>vpn au-syd-101</code> (Press <b>Tab</b> to autocomplete file names)</li>
     <li><b>Disconnect:</b> <code>vpn off</code></li>
+    <li><b>Go to config folder:</b> <code>vpnfolder</code></li>
 </ul>
 </ul><img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
