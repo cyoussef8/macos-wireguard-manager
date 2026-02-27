@@ -1,7 +1,7 @@
-<h1> macOS WireGuard Interactive Manager</h1>
-<p><i>Tested on macOS High Sierra (Homebrew & MacPorts)</i></p>
+<h1> macOS High Sierra - WireGuard Interactive Manager</h1>
+<p><i>Tested on macOS High Sierra (MacPorts & Homebrew)</i></p>
 
-<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu.</p>
+<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu. Especially helpful on older Mac's running outdated and unsupported OS versions; that cannot run the GUI for VPN's</p>
 
 <h2>Features</h2>
 <ul>
