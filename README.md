@@ -160,7 +160,7 @@ _vpn_autocomplete() {
 }
 complete -F _vpn_autocomplete vpn
 alias vpnfolder='cd /opt/local/etc/wireguard && ls'
-alias checkvpn='curl -s https://ipapi.co/json | grep -E "city|region|org"'
+alias checkvpn='curl -s https://ipapi.co/json | grep -E "ip|city|region|org"'
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 </code></pre>
 
@@ -176,7 +176,7 @@ _vpn_autocomplete() {
 }
 complete -F _vpn_autocomplete vpn
 alias vpnfolder='cd /etc/wireguard && ls'
-alias checkvpn='curl -s https://ipapi.co/json | grep -E "city|region|org"'
+alias checkvpn='curl -s https://ipapi.co/json | grep -E "ip|city|region|org"'
 </code></pre>
 
 <p>Run <code>source ~/.bash_profile</code> to apply changes.</p>
