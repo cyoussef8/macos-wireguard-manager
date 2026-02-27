@@ -1,7 +1,8 @@
 <h1> macOS High Sierra - WireGuard Interactive Manager</h1>
-<p><i>Tested on macOS High Sierra (MacPorts & Homebrew)</i></p>
+<p><i>Tested on macOS High Sierra using MacPorts</i></p>
+<p></p><i>May support Homebrew (Untested)</i></p>
 
-<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu. Especially helpful on older Mac's running outdated and unsupported OS versions; that cannot run the GUI for VPN's</p>
+<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu. Especially helpful on older Mac's running outdated and unsupported OS versions; that cannot run the GUI for VPN's.</p>
 
 <h2>Features</h2>
 <ul>
@@ -180,6 +181,51 @@ alias checkvpn='curl -s https://ipapi.co/json | grep -E "ip|city|region|org"'
 </code></pre>
 
 <p>Run <code>source ~/.bash_profile</code> to apply changes.</p>
+
+<h3>4. Move <code>.conf</code> Files into the Appropriate Folder</h3>
+
+<p>You must move your VPN <code>.conf</code> files into the specific VPN directory; otherwise, the client will not find any servers to connect to. These files are generally downloadable from your VPN provider's website.</p>
+
+<blockquote style="background-color: #f6f8fa; padding: 10px; border-left: 5px solid #0366d6;">
+    <strong>Important:</strong> Paste your <code>.conf</code> files into the designated <code>vpnfolder</code>.
+</blockquote>
+
+<p><strong>Target Directories:</strong></p>
+<ul>
+    <li><strong>MacPorts:</strong> <code>/opt/local/etc/wireguard</code></li>
+    <li><strong>Homebrew:</strong> <code>/etc/wireguard</code></li>
+</ul>
+
+<h3>Example Commands</h3>
+<p>Open your terminal and use the following commands based on your installation method. <strong>Make sure you are currently in the directory where you downloaded the <code>.conf</code> files.</strong></p>
+
+<p><strong>For MacPorts:</strong></p>
+<pre><code>cd ~/Downloads
+sudo mv *.conf /opt/local/etc/wireguard/</code></pre>
+
+<p><strong>For Homebrew:</strong></p>
+<pre><code>cd ~/Downloads
+sudo mv *.conf /etc/wireguard/</code></pre>
+
+<blockquote style="background-color: #fff3cd; padding: 10px; border-left: 5px solid #ffc107;">
+    <strong>Note:</strong> If you downloaded the configuration files as a <code>.zip</code> archive, ensure you are in the download directory and use the following commands to unzip and move them automatically:
+    <br><br>
+    <strong>For MacPorts:</strong>
+    <pre><code>cd ~/Downloads
+for f in *.zip; do unzip -j "$f" -d . && sudo mv *.conf /opt/local/etc/wireguard/; done</code></pre>
+    <strong>For Homebrew:</strong>
+    <pre><code>cd ~/Downloads
+for f in *.zip; do unzip -j "$f" -d . && sudo mv *.conf /etc/wireguard/; done</code></pre>
+</blockquote>
+
+<h3>Secure Configuration Files (Permissions)</h3>
+<p>For security reasons, WireGuard requires that configuration files are not readable by other users. Run the following command to set the correct permissions:</p>
+
+<p><strong>For MacPorts:</strong></p>
+<pre><code>sudo chmod 600 /opt/local/etc/wireguard/*.conf</code></pre>
+
+<p><strong>For Homebrew:</strong></p>
+<pre><code>sudo chmod 600 /etc/wireguard/*.conf</code></pre>
 
 <h2>Usage</h2>
 
