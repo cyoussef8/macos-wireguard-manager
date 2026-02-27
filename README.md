@@ -1,4 +1,4 @@
-# macos-wireguard-manager
+[# macos-wireguard-manager
 For Wireguard on High Sierra using .conf files
 
 macOS WireGuard Interactive Manager
@@ -58,3 +58,4 @@ q + Enter: Quit the menu.
 Connect by name: vpn au-syd-101
 
 Disconnect: vpn off
+](https://github.com/cyoussef8/macos-wireguard-manager/edit/main/README.md)
