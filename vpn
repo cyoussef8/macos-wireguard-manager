@@ -1,10 +1,16 @@
 cat << 'EOF' | sudo tee /usr/local/bin/vpn > /dev/null
 #!/bin/bash
-# VPN Manager for WireGuard
+# VPN Manager for WireGuard (Tested on macOS High Sierra)
 # Features: Interactive Menu, Pagination, Search, Connection Verification
 
 WG_QUICK="$(command -v wg-quick)"
-CONF_DIR="/etc/wireguard"
+
+# --- USER CONFIGURATION ---
+# Change this path based on your installation method:
+# Homebrew: /etc/wireguard
+# MacPorts: /opt/local/etc/wireguard
+CONF_DIR="/opt/local/etc/wireguard"
+# --------------------------
 
 # Colors
 GREEN='\033[0;32m'
@@ -16,9 +22,7 @@ NC='\033[0m' # No Color
 # Function to run verification checks
 run_check() {
     echo -e "\n${CYAN}Verifying connection...${NC}"
-    # 1. Mullvad specific check
-    curl -s https://am.i.mullvad.net/connected
-    # 2. ipapi check
+    # General check for IP and location
     curl -s https://ipapi.co/json | grep -E "city|region|org"
 }
 
