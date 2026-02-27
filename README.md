@@ -1,4 +1,4 @@
-<h1> macOS High Sierra - WireGuard Interactive Manager</h1>
+<h1> macOS High Sierra - WireGuard VPN Interactive Manager</h1>
 <p><i>Tested on macOS High Sierra using MacPorts</i></p>
 <p></p><i>May support Homebrew (Untested)</i></p>
 
