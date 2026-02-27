@@ -44,6 +44,9 @@
     <li>Make it executable:
         <pre><code>sudo chmod +x /usr/local/bin/vpn</code></pre>
     </li>
+    <li><b>Update PATH (if needed):</b> If you cannot run <code>vpn</code> from any folder, add this line to your <code>~/.bash_profile</code>:
+        <pre><code>export PATH="$PATH:/usr/local/bin"</code></pre>
+    </li>
 </ol>
 
 <h2>Usage</h2>
@@ -89,4 +92,5 @@
 <ul>
     <li><b>Connect by name:</b> <code>vpn au-syd-101</code></li>
     <li><b>Disconnect:</b> <code>vpn off</code></li>
+</ul>
 </ul><img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
