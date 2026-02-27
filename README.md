@@ -8,15 +8,15 @@
     <li><b>Pagination:</b> 15 items per page with easy navigation.</li>
     <li><b>Search:</b> Filter servers instantly by keyword.</li>
     <li><b>Active Status:</b> Clearly shows which VPN is currently connected.</li>
-    <li><b>Automatic Verification:</b> Runs connection checks immediately after connecting.</li>
-    <li><b>Auto-switches:</b> Automatically turns off active VPN before activating a new one.</li>
+    <li><b>Automatic Verification:</b> Runs connection checks immediately after connecting to confirm your new IP and location.</li>
+    <li><b>Auto-switches:</b> If a VPN is already active, it will automatically turn it off before activating the new one.</li>
 </ul>
 
 
 
 <h2>Prerequisites</h2>
 <ul>
-    <li><b>WireGuard Tools:</b> Installed via Homebrew (<code>brew install wireguard-tools</code>) or MacPorts.</li>
+    <li><b>WireGuard Tools:</b> Installed via Homebrew (<code>brew install wireguard-tools</code>) or MacPorts (<code>sudo port install wireguard-tools</code>).</li>
     <li><b>WireGuard Configurations:</b> Located in <code>/etc/wireguard/</code>.</li>
 </ul>
 
