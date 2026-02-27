@@ -227,6 +227,10 @@ for f in *.zip; do unzip -j "$f" -d . && sudo mv *.conf /etc/wireguard/; done</c
 <p><strong>For Homebrew:</strong></p>
 <pre><code>sudo chmod 600 /etc/wireguard/*.conf</code></pre>
 
+<blockquote style="background-color: #f8d7da; padding: 10px; border-left: 5px solid #dc3545;">
+    <strong>Warning:</strong> Ensure your <code>.conf</code> filenames do not exceed <strong>15 characters</strong> (excluding the <code>.conf</code> extension). Filenames longer than 15 characters may cause the VPN connection to fail.
+</blockquote>
+
 <h2>Usage</h2>
 
 <h3>1. Interactive Menu</h3>
