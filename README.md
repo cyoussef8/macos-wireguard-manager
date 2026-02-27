@@ -2,7 +2,7 @@
 <p><i>Tested on macOS High Sierra using MacPorts</i></p>
 <p></p><i>May support Homebrew (Untested)</i></p>
 
-<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu. Especially helpful on older Mac's running outdated and unsupported OS versions; that cannot run the GUI for VPN's.</p>
+<p>A powerful terminal command line bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu. Especially helpful on older Mac's running outdated and unsupported OS versions; that cannot run the GUI for VPN's.</p>
 
 <h2>Features</h2>
 <ul>
