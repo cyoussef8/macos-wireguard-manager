@@ -1,4 +1,5 @@
 <h1> macOS WireGuard Interactive Manager</h1>
+<p><i>Tested on macOS High Sierra</i></p>
 
 <p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu.</p>
 
