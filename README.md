@@ -1,61 +1,77 @@
-[# macos-wireguard-manager
-For Wireguard on High Sierra using .conf files
+<h1> macOS WireGuard Interactive Manager</h1>
 
-macOS WireGuard Interactive Manager
-A powerful bash script for macOS that turns wg-quick into an interactive, paginated, and searchable menu.
+<p>A powerful bash script for macOS that turns <code>wg-quick</code> into an interactive, paginated, and searchable menu.</p>
 
-Features
-Interactive Menu: Browse all your WireGuard configuration files (.conf).
+<h2>Features</h2>
+<ul>
+    <li><b>Interactive Menu:</b> Browse all your WireGuard configuration files (<code>.conf</code>).</li>
+    <li><b>Pagination:</b> 15 items per page with easy navigation.</li>
+    <li><b>Search:</b> Filter servers instantly by keyword.</li>
+    <li><b>Active Status:</b> Clearly shows which VPN is currently connected.</li>
+    <li><b>Automatic Verification:</b> Runs connection checks immediately after connecting.</li>
+    <li><b>Auto-switches:</b> Automatically turns off active VPN before activating a new one.</li>
+</ul>
 
-Pagination: 15 items per page with easy navigation.
 
-Search: Filter servers instantly by keyword.
 
-Active Status: Clearly shows which VPN is currently connected.
+<h2>Prerequisites</h2>
+<ul>
+    <li><b>WireGuard Tools:</b> Installed via Homebrew (<code>brew install wireguard-tools</code>) or MacPorts.</li>
+    <li><b>WireGuard Configurations:</b> Located in <code>/etc/wireguard/</code>.</li>
+</ul>
 
-Automatic Verification: Runs connection checks immediately after connecting to confirm your new IP and location.
+<h2>Installation</h2>
+<ol>
+    <li>Clone or download this script.</li>
+    <li>Move the script to your local bin folder:
+        <pre><code>sudo mv vpn /usr/local/bin/vpn</code></pre>
+    </li>
+    <li>Make it executable:
+        <pre><code>sudo chmod +x /usr/local/bin/vpn</code></pre>
+    </li>
+</ol>
 
-Auto-switches: If a VPN is already active, it will automatically turn it off before activating the new one.
+<h2>Usage</h2>
 
-Prerequisites
-WireGuard Tools: Installed via Homebrew (brew install wireguard-tools) or MacPorts.
+<h3>1. Interactive Menu</h3>
+<p>Just type:</p>
+<pre><code>vpn</code></pre>
 
-WireGuard Configurations: Located in /etc/wireguard/.
+<table border="1">
+    <tr>
+        <th>Input</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td><b>Numbers</b></td>
+        <td>Type a number and hit Enter to connect.</td>
+    </tr>
+    <tr>
+        <td><b>Enter</b></td>
+        <td>Go to the next page (loops back to top).</td>
+    </tr>
+    <tr>
+        <td><b>p + Enter</b></td>
+        <td>Go to the previous page.</td>
+    </tr>
+    <tr>
+        <td><b>s + Enter</b></td>
+        <td>Search/filter by keyword.</td>
+    </tr>
+    <tr>
+        <td><b>c + Enter</b></td>
+        <td>Clear search and show all servers.</td>
+    </tr>
+    <tr>
+        <td><b>q + Enter</b></td>
+        <td>Quit the menu.</td>
+    </tr>
+</table>
 
-Installation
-Clone or download this script.
 
-Move the script to your local bin folder:
 
-Bash
-
-sudo mv vpn /usr/local/bin/vpn
-Make it executable:
-
-Bash
-
-sudo chmod +x /usr/local/bin/vpn
-Usage
-1. Interactive Menu
-Just type:
-
-Bash
-
-vpn
-Numbers: Type a number and hit Enter to connect.
-
-Enter: Go to the next page (loops back to top).
-
-p + Enter: Go to the previous page.
-
-s + Enter: Search/filter by keyword.
-
-c + Enter: Clear search and show all servers.
-
-q + Enter: Quit the menu.
-
-2. Manual Commands
-Connect by name: vpn au-syd-101
-
-Disconnect: vpn off
-](https://github.com/cyoussef8/macos-wireguard-manager/edit/main/README.md)
+<h3>2. Manual Commands</h3>
+<ul>
+    <li><b>Connect by name:</b> <code>vpn au-syd-101</code></li>
+    <li><b>Disconnect:</b> <code>vpn off</code></li>
+</ul>
