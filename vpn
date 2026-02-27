@@ -1,0 +1,117 @@
+cat << 'EOF' | sudo tee /usr/local/bin/vpn > /dev/null
+#!/bin/bash
+# VPN Manager for WireGuard
+# Features: Interactive Menu, Pagination, Search, Connection Verification
+
+WG_QUICK="$(command -v wg-quick)"
+CONF_DIR="/etc/wireguard"
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Function to run verification checks
+run_check() {
+    echo -e "\n${CYAN}Verifying connection...${NC}"
+    # 1. Mullvad specific check
+    curl -s https://am.i.mullvad.net/connected
+    # 2. ipapi check
+    curl -s https://ipapi.co/json | grep -E "city|region|org"
+}
+
+# --- Help Text ---
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "Usage: vpn [command]"
+    echo "Commands:"
+    echo "  (none)    Open interactive menu"
+    echo "  off       Stop active VPN"
+    echo "  <name>    Connect to <name>.conf"
+    exit 0
+fi
+
+# --- Find Active VPN ---
+ACTIVE_VPN=$(ls /var/run/wireguard/*.name 2>/dev/null | xargs -n 1 basename | sed 's/.name//' | head -n 1)
+
+# --- Interactive Menu ---
+if [ -z "$1" ]; then
+    mapfile -t ALL_CONFIGS < <(ls "$CONF_DIR"/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf//')
+    CONFIGS=("${ALL_CONFIGS[@]}")
+    
+    INDEX=0
+    PAGE_SIZE=15
+    SEARCH_TERM=""
+
+    while true; do
+        clear
+        echo -e "${GREEN}--- ACTIVE ---${NC}"
+        [ -z "$ACTIVE_VPN" ] && echo "None" || echo "$ACTIVE_VPN"
+        echo ""
+        
+        if [ ! -z "$SEARCH_TERM" ]; then
+            echo -e "${YELLOW}--- SEARCHING: $SEARCH_TERM (Type 'c' to clear) ---${NC}"
+        else
+            echo -e "${BLUE}--- SELECT A SERVER ---${NC}"
+        fi
+
+        # Show page
+        for ((i=INDEX; i<INDEX+PAGE_SIZE && i<${#CONFIGS[@]}; i++)); do
+            printf "%3d) %s\n" $((i+1)) "${CONFIGS[$i]}"
+        done
+
+        echo -e "\n${NC}(Enter) Next | (p) Prev | (s) Search | (q) Quit${NC}"
+        read -p "Type Number or Command: " INPUT
+
+        # If Enter is pressed, handle navigation
+        if [ -z "$INPUT" ]; then
+            if ((INDEX+PAGE_SIZE < ${#CONFIGS[@]})); then
+                INDEX=$((INDEX+PAGE_SIZE))
+            else
+                INDEX=0 # Loop back
+            fi
+            continue
+        fi
+
+        if [[ "$INPUT" =~ ^[0-9]+$ ]] && [ "$INPUT" -le "${#CONFIGS[@]}" ] && [ "$INPUT" -gt 0 ]; then
+            NAME="${CONFIGS[$((INPUT-1))]}"
+            break
+        elif [[ "$INPUT" == "s" ]]; then
+            read -p "Search for: " SEARCH_TERM
+            mapfile -t CONFIGS < <(printf "%s\n" "${ALL_CONFIGS[@]}" | grep -i "$SEARCH_TERM")
+            INDEX=0
+        elif [[ "$INPUT" == "c" ]]; then
+            SEARCH_TERM=""; CONFIGS=("${ALL_CONFIGS[@]}"); INDEX=0
+        elif [[ "$INPUT" == "n" ]]; then
+            if ((INDEX+PAGE_SIZE < ${#CONFIGS[@]})); then INDEX=$((INDEX+PAGE_SIZE)); else INDEX=0; fi
+        elif [[ "$INPUT" == "p" ]]; then
+            if ((INDEX-PAGE_SIZE >= 0)); then INDEX=$((INDEX-PAGE_SIZE)); fi
+        elif [[ "$INPUT" == "q" ]]; then
+            exit 0
+        fi
+    done
+    
+    # Connection Logic
+    [ ! -z "$ACTIVE_VPN" ] && sudo "$WG_QUICK" down "$CONF_DIR/$ACTIVE_VPN.conf"
+    echo -e "${GREEN}Starting $NAME...${NC}"
+    sudo chmod 600 "$CONF_DIR/$NAME.conf"
+    sudo "$WG_QUICK" up "$CONF_DIR/$NAME.conf"
+    run_check
+    exit 0
+fi
+
+# --- Direct Command Logic ---
+if [[ "$1" == "off" || "$1" == "stop" ]]; then
+    [ -z "$ACTIVE_VPN" ] && echo "Nothing running." || sudo "$WG_QUICK" down "$CONF_DIR/$ACTIVE_VPN.conf"
+    exit 0
+fi
+
+NAME=$1
+CONFIG="$CONF_DIR/$NAME.conf"
+if [ ! -f "$CONFIG" ]; then echo "Error: '$NAME.conf' not found"; exit 1; fi
+[ ! -z "$ACTIVE_VPN" ] && sudo "$WG_QUICK" down "$CONF_DIR/$ACTIVE_VPN.conf"
+sudo chmod 600 "$CONFIG"
+sudo "$WG_QUICK" up "$CONFIG"
+run_check
+EOF
