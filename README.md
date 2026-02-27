@@ -35,6 +35,9 @@
             <li>For <b>Homebrew</b>, set: <code>CONF_DIR="/etc/wireguard"</code></li>
         </ul>
     </li>
+    <li><b>Add Config Files:</b> Move your WireGuard <code>.conf</code> files into the directory you defined in <code>CONF_DIR</code>.
+        <pre><code>sudo mv your-server.conf /opt/local/etc/wireguard/</code></pre>
+    </li>
     <li>Move the script to your local bin folder:
         <pre><code>sudo mv vpn /usr/local/bin/vpn</code></pre>
     </li>
@@ -86,4 +89,4 @@
 <ul>
     <li><b>Connect by name:</b> <code>vpn au-syd-101</code></li>
     <li><b>Disconnect:</b> <code>vpn off</code></li>
-</ul>
+</ul><img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
