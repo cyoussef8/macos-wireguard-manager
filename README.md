@@ -13,7 +13,7 @@
     <li><b>Auto-switches:</b> Automatically turns off active VPN before activating a new one.</li>
 </ul>
 
-
+<img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
 
 <h2>Installation</h2>
 
@@ -144,8 +144,6 @@ run_check
 EOF
 </code></pre>
 
-
-
 <h3>2. Enter Your Password</h3>
 <p>The terminal will ask for your macOS login password. <b>Note: Nothing will appear on the screen while you type your password.</b> This is normal security behavior. Just type it and press <b>Enter</b>.</p>
 
@@ -181,6 +179,18 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 <p>Run <code>source ~/.bash_profile</code> to apply changes.</p>
 
+<img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
+
 <h2>Usage</h2>
+
+<h3>1. Interactive Menu</h3>
 <p>Just type:</p>
 <pre><code>vpn</code></pre>
+
+<h3>2. Manual Commands & Autocomplete</h3>
+<ul>
+    <li><b>Connect by name:</b> <code>vpn au-syd-101</code> (Press <b>Tab</b> to autocomplete file names)</li>
+    <li><b>Disconnect:</b> <code>vpn off</code></li>
+    <li><b>Go to config folder:</b> <code>vpnfolder</code></li>
+    <li><b>Check IP Details:</b> <code>checkvpn</code></li>
+</ul>
