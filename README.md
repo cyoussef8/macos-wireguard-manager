@@ -17,8 +17,8 @@
 
 <h2>Installation</h2>
 
-<h3>1. Copy the Script</h3>
-<p>Copy the following block of code and paste it directly into your Terminal, then press <b>Enter</b>:</p>
+<h3>1. Copy the Script </h3><code>(Currently using <b>MacPorts</b> - If using <b>Homebrew</b>, change the <b>CONF_DIR=</b> path to "/etc/wireguard")</code>
+<p>After ensuring the correct path is specified, copy the following block of code <em>(you need to specify the path properly)</em> and paste it directly into your Terminal, then press <b>Enter</b>:</p>
 
 <pre><code>
 cat << 'EOF' | sudo tee /usr/local/bin/vpn > /dev/null
@@ -148,20 +148,7 @@ EOF
 <p>The terminal will ask for your macOS login password. <b>Note: Nothing will appear on the screen while you type your password.</b> This is normal security behavior. Just type it and press <b>Enter</b>.</p>
 
 <h3>3. Configure Paths & Autocomplete</h3>
-<p>Open <code>~/.bash_profile</code> in a text editor (e.g., <code>nano ~/.bash_profile</code>) and add the section matching your installation:</p>
-
-<h4>For Homebrew Users:</h4>
-<pre><code>
-# VPN Autocomplete for Homebrew
-_vpn_autocomplete() {
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    local configs=$(ls /etc/wireguard/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf//')
-    COMPREPLY=( $(compgen -W "$configs" -- "$cur") )
-}
-complete -F _vpn_autocomplete vpn
-alias vpnfolder='cd /etc/wireguard && ls'
-alias checkvpn='curl -s https://ipapi.co/json | grep -E "city|region|org"'
-</code></pre>
+<p>Open <code>~/.bash_profile</code> in a text editor (e.g., <code>sudo nano ~/.bash_profile</code>) and add the section matching your installation:</p>
 
 <h4>For MacPorts Users:</h4>
 <pre><code>
@@ -179,7 +166,20 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 <p>Run <code>source ~/.bash_profile</code> to apply changes.</p>
 
-<img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
+<h4>For Homebrew Users:</h4>
+<pre><code>
+# VPN Autocomplete for Homebrew
+_vpn_autocomplete() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local configs=$(ls /etc/wireguard/*.conf 2>/dev/null | xargs -n 1 basename | sed 's/.conf//')
+    COMPREPLY=( $(compgen -W "$configs" -- "$cur") )
+}
+complete -F _vpn_autocomplete vpn
+alias vpnfolder='cd /etc/wireguard && ls'
+alias checkvpn='curl -s https://ipapi.co/json | grep -E "city|region|org"'
+</code></pre>
+
+<p>Run <code>source ~/.bash_profile</code> to apply changes.</p>
 
 <h2>Usage</h2>
 
@@ -194,3 +194,5 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     <li><b>Go to config folder:</b> <code>vpnfolder</code></li>
     <li><b>Check IP Details:</b> <code>checkvpn</code></li>
 </ul>
+
+<img width="602" height="478" alt="Screen Shot 2026-02-27 at 2 58 51 pm" src="https://github.com/user-attachments/assets/8eddcd22-8b40-4e39-8b68-36920b9cb447" />
