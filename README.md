@@ -18,12 +18,23 @@
 <h2>Prerequisites</h2>
 <ul>
     <li><b>WireGuard Tools:</b> Installed via Homebrew (<code>brew install wireguard-tools</code>) or MacPorts (<code>sudo port install wireguard-tools</code>).</li>
-    <li><b>WireGuard Configurations:</b> Located in <code>/etc/wireguard/</code>.</li>
+    <li><b>WireGuard Configurations:</b>
+        <ul>
+            <li>If using <b>Homebrew</b>, default path is <code>/etc/wireguard/</code>.</li>
+            <li>If using <b>MacPorts</b>, default path is <code>/opt/local/etc/wireguard/</code>.</li>
+        </ul>
+    </li>
 </ul>
 
 <h2>Installation</h2>
 <ol>
     <li>Clone or download this script.</li>
+    <li><b>Configure Path:</b> Open the script in a text editor and update the <code>CONF_DIR</code> variable to match your installation:
+        <ul>
+            <li>For <b>MacPorts</b>, set: <code>CONF_DIR="/opt/local/etc/wireguard"</code></li>
+            <li>For <b>Homebrew</b>, set: <code>CONF_DIR="/etc/wireguard"</code></li>
+        </ul>
+    </li>
     <li>Move the script to your local bin folder:
         <pre><code>sudo mv vpn /usr/local/bin/vpn</code></pre>
     </li>
